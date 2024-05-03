@@ -18,10 +18,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-//Handles both RESTful and Web requests.
 @RestController
 @Controller
-//@RequestMapping("post")
 public class PostController {
 
     @Autowired
@@ -97,25 +95,6 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error liking post");
         }
     }
-    @GetMapping("/post/create")
-    public String displayPostReviewForm(Model model) {
-        model.addAttribute("title", "Create Review");
-        model.addAttribute("post", new Post());
-        return "post/create";
-    }
-    @PostMapping("/post/create")
-    public String processCreateEventForm(@ModelAttribute @Valid Post newPost,
-                                         Errors errors, Model model) {
-        if(errors.hasErrors()) {
-            model.addAttribute("title", "Create Review");
-            return "post/create";
-        }
-
-        postRepository.save(newPost);
-        return "redirect:/index";
-    }
-
-
 
 
     @GetMapping("/post/edit/{postId}")
